@@ -1,5 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import withReduxStore from '../redux/with-redux-store'
+import { Provider } from 'react-redux'
 
 import '../.semantic/dist/semantic.min.css';
 
@@ -15,14 +17,16 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, reduxStore } = this.props;
 
     return (
       <Container>
-        <Component {...pageProps} />
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+        </Provider>
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default withReduxStore(MyApp);
