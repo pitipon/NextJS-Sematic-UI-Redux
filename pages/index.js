@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import Clock from './clock'
+import Counter from './counter'
+import { connect } from 'react-redux'
 import { Button } from 'semantic-ui-react';
 
 const StyledContainer = styled.div`
@@ -9,9 +12,11 @@ const StyledContainer = styled.div`
   align-items: center;
 `;
 
-const Home = () => (
+const Home = ({ lastUpdate, light }) => (
   <StyledContainer>
     <div>
+      <Clock lastUpdate={lastUpdate} light={light} />
+      <Counter />
       <h1>Next.js + Semantic UI!</h1>
     </div>
     <div>
@@ -20,4 +25,10 @@ const Home = () => (
     </div>
   </StyledContainer>
 );
-export default Home;
+
+const mstp = (state) => {
+  const { lastUpdate, light } = state
+  return { lastUpdate, light }
+}
+
+export default connect(mstp)(Home);
